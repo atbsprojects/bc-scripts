@@ -1,4 +1,5 @@
 $Language = "en"
+
 function Get-LocalizedText {
     param(
         [string]$Key
@@ -6,58 +7,73 @@ function Get-LocalizedText {
 
     $Translations = @{
         en = @{
+            SelectLanguage                      = "Select language (en/sl)"
             Hello                               = "Hello!"
-            DockerCheck                         = "Checking if Docker is installed..."
-            DockerNotInstalled                  = "Docker is not installed or not running."
-            DockerInstallPrompt                 = "Please install Docker and run this script again."
-            BCContainerHelperCheck              = "Checking if BCContainerHelper is installed..."
-            BCContainerHelperNotInstalled       = "BCContainerHelper is not installed. Installing..."
-            BCContainerHelperInstalling         = "Installing BCContainerHelper..."
-            BCContainerHelperInstalled          = "BCContainerHelper is installed."
-            BCContainerHelperInstallationFailed = "BCContainerHelper installation failed."
-            CheckingPermissions                 = "Checking permissions..."
-            CheckingPermissionsFailed           = "Checking permissions failed."
+            DockerCheck                         = "⌛ Checking if Docker is installed..."
+            DockerInstalled                     = "✅ Docker is installed."
+            DockerNotInstalled                  = "❌ Docker is not installed or not running."
+            DockerInstallPrompt                 = "⚠️ Please install Docker and run this script again."
+            BCContainerHelperCheck              = "⌛ Checking if BCContainerHelper is installed..."
+            BCContainerHelperNotInstalled       = "❌ BCContainerHelper is not installed."
+            BCContainerHelperInstalling         = "⌛ Installing BCContainerHelper..."
+            BCContainerHelperInstalled          = "✅ BCContainerHelper is installed."
+            BCContainerHelperInstallationFailed = "❌ BCContainerHelper installation failed."
+            CheckingPermissions                 = "⌛ Checking permissions..."
+            CheckingPermissionsSuccess          = "✅ Permissions are set correctly."
+            CheckingPermissionsFailed           = "❌ Checking permissions failed."
             ContainerName                       = "Enter container name"
             LicenseFile                         = "Enter license file path"
-            Version                             = "Enter the version of BC. The version must match the version of the database back-up"
+            LicenseFileInvalidPath              = "❌ License file path is invalid. Please enter a valid path."
+            Version                             = "Enter the version of BC. The version must match the version of the database back-up. The pattern is XX.YY (e.g. 12.1)"
             AuthenticationType                  = "Select the authentication type. The authentication can be password or windows. Enter (pwd/win)"
             UsernamePassword                    = "Enter a username and password"
             DatabaseType                        = "Select the database type. The database type can be a bak file or SQL Server. Enter (bak/sqls)"
             BakPath                             = "Enter a path for the .bak file"
+            BakInvalidPath                      = "❌ Bak path is invalid. Please enter a valid path."
             DatabaseServer                      = "Enter the database server"
             DatabaseInstance                    = "Enter the database instance"
             DatabaseName                        = "Enter the database name"
             DatabaseCredential                  = "Enter the database credential"
-            ShouldExposePorts                   = "Should the ports be exposed? By enabling this, BC will be accessible from outside the container. For example, you can share the container with your colleagues. Select (Y/N)"
-            ShouldIncludeTestToolKit            = "Should the Test Tool Kit be included? By enabling this, the Test Tool Kit will be installed. Select (Y/N)"
-            RemoveExisitingBCContainer          = "Remove existing BC container? Select (Y/N)"
+            ShouldExposePorts                   = "Should the ports be exposed? By enabling this, BC will be accessible from outside the container. For example, you can share the container with your colleagues. Select (y/n)"
+            ShouldIncludeTestToolKit            = "Should the Test Tool Kit be included? By enabling this, the Test Tool Kit will be installed. Select (y/n)"
+            RemoveExisitingBCContainer          = "Remove existing BC container? Select (y/n)"
+            RemovingExistingContainer           = "⌛ Removing existing container..."
+            RemovingExistingContainerSuccess    = "✅ Existing container removed."
+            RemovingExistingContainerFailed     = "❌ Failed to remove existing container."
         }
         sl = @{
-            Hello                               = "Pozdravljen!"
-            DockerCheck                         = "Preverjam, ali je Docker nameščen..."
-            DockerNotInstalled                  = "Docker ni nameščen ali ne deluje."
-            DockerInstallPrompt                 = "Prosim, namestite Docker in ponovno zaženite ta skript."
-            BCContainerHelperCheck              = "Preverjam, ali je BCContainerHelper nameščen..."
-            BCContainerHelperNotInstalled       = "BCContainerHelper ni nameščen. Nameščam..."
-            BCContainerHelperInstalling         = "Nameščam BCContainerHelper..."
-            BCContainerHelperInstalled          = "BCContainerHelper je nameščen."
-            BCContainerHelperInstallationFailed = "Prišlo je do napake pri namestitvi BCContainerHelper."
-            CheckingPermissions                 = "Preverjam dovoljenja..."
-            CheckingPermissionsFailed           = "Prišlo je do napake pri preverjanju dovoljenj."
+            Hello                               = "Pozdravljeni!"
+            DockerCheck                         = "⌛ Preverjamo, ali je Docker nameščen ..."
+            DockerInstalled                     = "✅ Docker je nameščen."
+            DockerNotInstalled                  = "❌ Docker ni nameščen ali ne deluje."
+            DockerInstallPrompt                 = "⚠️ Prosimo, namestite Docker in ponovno zaženite ta skript."
+            BCContainerHelperCheck              = "⌛ Preverjamo, ali je BCContainerHelper nameščen ..."
+            BCContainerHelperNotInstalled       = "❌ BCContainerHelper ni nameščen."
+            BCContainerHelperInstalling         = "⌛ Nameščam BCContainerHelper ..."
+            BCContainerHelperInstalled          = "✅ BCContainerHelper je nameščen."
+            BCContainerHelperInstallationFailed = "❌ Prišlo je do napake pri namestitvi BCContainerHelper."
+            CheckingPermissions                 = "⌛ Preverjamo dovoljenja ..."
+            CheckingPermissionsSuccess          = "✅ Dovoljenja so nameščena pravilno."
+            CheckingPermissionsFailed           = "❌ Prišlo je do napake pri preverjanju dovoljenj."
             ContainerName                       = "Vnesite ime kontejnera"
             LicenseFile                         = "Vnesite pot do licence"
-            Version                             = "Vnesite različico BC. Različica se mora ujemati z različico iz backup-a podatkovne baze"
+            LicenseFileInvalidPath              = "❌ Pot do licence ni veljavna. Vnesite veljavno pot."
+            Version                             = "Vnesite različico BC. Različica se mora ujemati z različico iz backup-a podatkovne baze. Oblika je XX.YY (npr. 12.1)"
             AuthenticationType                  = "Izberite vrsto avtentikacije. Avtentikacija lahko je geslo ali windows. Vnesite (pwd/win)"
             UsernamePassword                    = "Vnesite uporabniško ime in geslo"
             DatabaseType                        = "Izberite vrsto podatkovne baze. Podatkovna baza lahko je datoteka .bak ali SQL Server. Vnesite (bak/sqls)"
             BakPath                             = "Vnesite pot do .bak datoteke"
+            BakInvalidPath                      = "❌ Pot do .bak datoteke ni veljavna. Vnesite veljavno pot."
             DatabaseServer                      = "Vnesite ime strežnika podatkovne baze"
             DatabaseInstance                    = "Vnesite ime instance podatkovne baze"
             DatabaseName                        = "Vnesite ime podatkovne baze"
             DatabaseCredential                  = "Vnesite uporabniško ime in geslo za podatkovno bazo"
-            ShouldExposePorts                   = "Naj so porti odprti? Če so odprti, bo BC dostopen na lokalnem omrežju. Na primer, lahko delite kontejner z vašimi kolegi. Izberite (Y/N)"
-            ShouldIncludeTestToolKit            = "Naj bo Test Tool Kit vključen? Če je vključen, bo Test Tool Kit nameščen. Izberite (Y/N)"
-            RemoveExisitingBCContainer          = "Remove existing BC container? Select (Y/N)"
+            ShouldExposePorts                   = "Naj so porti odprti? Če so odprti, bo BC dostopen na lokalnem omrežju. Na primer, lahko delite kontejner z vašimi kolegi. Izberite (y/n)"
+            ShouldIncludeTestToolKit            = "Naj je Test Tool Kit vključen? Če je vključen, bo Test Tool Kit nameščen. Izberite (y/n)"
+            RemoveExisitingBCContainer          = "Izbrišemo obstoječi BC kontejner? Izberite (y/n)"
+            RemovingExistingContainer           = "⌛ Odstranjevanje obstoječega kontejnera..."
+            RemovingExistingContainerSuccess    = "✅ Obstoječi kontejner odstranjen."
+            RemovingExistingContainerFailed     = "❌ Odstranitev obstoječega kontejnera ni uspela."
         }
     }
 
@@ -69,15 +85,78 @@ function Get-LocalizedText {
     }
 }
 
-$LanguageChoice = Read-Host "Select language (en/sl)"
-if ($LanguageChoice -in ("en", "sl")) {
-    $Language = $LanguageChoice
+function Get-ParsedInput {
+    param(
+        [string]$prompt
+    )
+
+    $user_input = Read-Host -Prompt $prompt
+
+    while ($user_input -eq "") {
+        $user_input = Read-Host -Prompt $prompt
+    }
+
+    return $user_input
+}
+
+function Get-ParsedInputWithPattern {
+    param(
+        [string]$prompt,
+        [string]$pattern
+    )
+
+    $user_input = Read-Host -Prompt $prompt
+
+    while (-not ($user_input -match $pattern)) {
+        $user_input = Read-Host -Prompt $prompt
+    }
+
+    return $user_input
+}
+
+function Get-ParsedInputWithOptions {
+    param(
+        [string]$prompt,
+        [string[]]$options
+    )
+
+    $user_input = Read-Host -Prompt ($prompt)
+
+    while (-not ($user_input -in $options)) {
+        $user_input = Read-Host -Prompt ($prompt)
+    }
+
+    return $user_input
+}
+
+function Get-ValidatedPath {
+    param(
+        [string]$prompt,
+        [string]$path_not_found
+    )
+    
+    $path = Read-Host -Prompt $prompt
+
+    while (-not (Test-Path $path)) { 
+        Write-Host $path_not_found -ForegroundColor Red
+
+        $path = Read-Host -Prompt $prompt
+    }
+
+    return $path
+}
+
+if ($null -eq $Env:BSLLanguage) {
+    $Language = Get-ParsedInputWithOptions -prompt (Get-LocalizedText -Key "SelectLanguage") -options ("en", "sl")
+
+    $Env:BSLLanguage = $Language
 }
 else {
-    Write-Warning "Invalid language choice. Using default (English)."
+    $Language = $Env:BSLLanguage
 }
 
 Write-Host (Get-LocalizedText -Key "Hello") -ForegroundColor White
+
 Write-Host (Get-LocalizedText -Key "DockerCheck") -ForegroundColor White
 
 try {
@@ -93,6 +172,8 @@ if (-not $dockerInstalled) {
     Write-Host (Get-LocalizedText -Key "DockerInstallPrompt") -ForegroundColor Red
     Exit 1
 }
+
+Write-Host (Get-LocalizedText -Key "DockerInstalled") -ForegroundColor Green
 
 Write-Host (Get-LocalizedText -Key "BCContainerHelperCheck") -ForegroundColor White
 
@@ -115,119 +196,100 @@ if ($null -eq $bc_container_helper) {
         Exit 1
     }
 }
-
-Write-Host (Get-LocalizedText -Key "CheckingPermissions") -ForegroundColor White
+else {
+    Write-Host (Get-LocalizedText -Key "BCContainerHelperInstalled") -ForegroundColor Green
+}
 
 try {
     Write-Host (Get-LocalizedText -Key "CheckingPermissions") -ForegroundColor White
 
     Check-BcContainerHelperPermissions -Fix
+
+    Write-Host (Get-LocalizedText -Key "CheckingPermissionsSuccess") -ForegroundColor Green
 }
 catch {
     Write-Host (Get-LocalizedText -Key "CheckingPermissionsFailed") -ForegroundColor Red
 
     Write-Host $_.Exception.Message -ForegroundColor Red
+
+    Exit 1
 }
 
-$container_name = Read-Host -Prompt (Get-LocalizedText -Key "ContainerName")
+$container_name = Get-ParsedInput -prompt (Get-LocalizedText -Key "ContainerName")
 
-while ($container_name -eq "") {
-    $container_name = Read-Host -Prompt (Get-LocalizedText -Key "ContainerName")
-}
+$license_file = Get-ValidatedPath -prompt (Get-LocalizedText -Key "LicenseFile") -path_not_found (Get-LocalizedText -Key "LicenseFileInvalidPath")
 
-$license_file = Read-Host -Prompt (Get-LocalizedText -Key "LicenseFile")
+$version = Get-ParsedInputWithPattern -prompt (Get-LocalizedText -Key "Version") -pattern "^\d+\.\d+$"
 
-while ($license_file -eq "") {
-    $license_file = Read-Host -Prompt (Get-LocalizedText -Key "LicenseFile")
-
-    # check if path is valid, if file exists, if file is .bclicense actually
-}
-
-$version = Read-Host -Prompt (Get-LocalizedText -Key "Version")
-
-while ($version -eq "") {
-    $version = Read-Host -Prompt (Get-LocalizedText -Key "Version")
-}
-
-$authentication_type = Read-Host -Prompt (Get-LocalizedText -Key "AuthenticationType")
-
-while (-not ($authentication_type -in @("pwd", "win"))) {
-    $authentication_type = Read-Host -Prompt (Get-LocalizedText -Key "AuthenticationType")
-}
+$authentication_type = Get-ParsedInputWithOptions -prompt (Get-LocalizedText -Key "AuthenticationType") -options ("pwd", "win")
 
 if ($authentication_type -eq "win") {
     $auth = "Windows"
 }
 else {
-    Write-Host (Get-LocalizedText -Key "UsernamePassword")
+    try {
+        Write-Host (Get-LocalizedText -Key "UsernamePassword")
 
-    $credential = Get-Credential -Message (Get-LocalizedText -Key "UsernamePassword")
-
-    $auth = "UserPassword"
+        $credential = Get-Credential -Message (Get-LocalizedText -Key "UsernamePassword")
+    
+        $auth = "UserPassword"
+    }
+    catch {
+        Write-Host $_.Exception.Message -ForegroundColor Red
+        Exit 1
+    }
 }
 
-$database_type = Read-Host -Prompt (Get-LocalizedText -Key "DatabaseType")
-
-while (-not ($database_type -in @("bak", "sqls"))) {
-    $database_type = Read-Host -Prompt (Get-LocalizedText -Key "DatabaseType")
-}
+$database_type = Get-ParsedInputWithOptions -prompt (Get-LocalizedText -Key "DatabaseType") -options ("bak", "sqls")
 
 if ($database_type -eq "bak") {
-    $backup_file = Read-Host -Prompt (Get-LocalizedText -Key "BakPath")
-
-    while ($backup_file -eq "") {
-        $backup_file = Read-Host -Prompt (Get-LocalizedText -Key "BakPath")   
-    }
+    $backup_file = Get-ValidatedPath -prompt (Get-LocalizedText -Key "BakPath") -path_not_found (Get-LocalizedText -Key "BakInvalidPath")
 }
 else {
-    $database_server = Read-Host -Prompt (Get-LocalizedText -Key "DatabaseServer")
+    $database_server = Get-ParsedInput -prompt (Get-LocalizedText -Key "DatabaseServer")
 
-    while ($database_server -eq "") {
-        $database_server = Read-Host -Prompt (Get-LocalizedText -Key "DatabaseServer")   
-    }
+    $database_instance = Get-ParsedInput -prompt (Get-LocalizedText -Key "DatabaseInstance")
 
-    $database_instance = Read-Host -Prompt (Get-LocalizedText -Key "DatabaseInstance")
-
-    while ($database_instance -eq "") {
-        $database_instance = Read-Host -Prompt (Get-LocalizedText -Key "DatabaseInstance")   
-    }
-
-    $database_name = Read-Host -Prompt (Get-LocalizedText -Key "DatabaseName")
-
-    while ($database_name -eq "") {
-        $database_name = Read-Host -Prompt (Get-LocalizedText -Key "DatabaseName")   
-    }
+    $database_name = Get-ParsedInput -prompt (Get-LocalizedText -Key "DatabaseName")
 
     $database_credential = Get-Credential -Message (Get-LocalizedText -Key "DatabaseCredential")
 }
 
-$should_expose_ports = Read-Host -Prompt (Get-LocalizedText -Key "ShouldExposePorts")
+$should_expose_ports = Get-ParsedInputWithOptions -prompt (Get-LocalizedText -Key "ShouldExposePorts") -options ("y", "n")
 
-while ($should_expose_ports -eq "" -or $should_expose_ports -ne "Y" -and $should_expose_ports -ne "N") {
-    $should_expose_ports = Read-Host -Prompt (Get-LocalizedText -Key "ShouldExposePorts")
+$should_include_test_tool_kit = Get-ParsedInputWithOptions -prompt (Get-LocalizedText -Key "ShouldIncludeTestToolKit") -options ("y", "n")
+
+try {
+    docker inspect $container_name 2>$null | Out-Null
+
+    $does_container_exist = $True
+}
+catch {
+    $does_container_exist = $False
 }
 
-$should_include_test_tool_kit = Read-Host -Prompt (Get-LocalizedText -Key "ShouldIncludeTestToolKit")
+if ($does_container_exist) {
+    $should_remove_existing_container = Get-ParsedInputWithOptions -prompt (Get-LocalizedText -Key "RemoveExisitingBCContainer") -options ("y", "n")
 
-while ($should_include_test_tool_kit -eq "" -or $should_include_test_tool_kit -ne "Y" -and $should_include_test_tool_kit -ne "N") {
-    $should_include_test_tool_kit = Read-Host -Prompt (Get-LocalizedText -Key "ShouldIncludeTestToolKit")
-}
+    if ($should_remove_existing_container -eq "y") {
+        try {
+            Write-Host (Get-LocalizedText -Key "RemovingExistingContainer") -ForegroundColor White
+    
+            Remove-BcContainer $container_name
+        
+            Write-Host (Get-LocalizedText -Key "RemovingExistingContainerSuccess") -ForegroundColor Green
+        }
+        catch {
+            Write-Host (Get-LocalizedText -Key "RemovingExistingContainerFailed") -ForegroundColor Red
 
-# check if container exists
+            Write-Host $_.Exception.Message -ForegroundColor Red
 
-$should_remove_existing_container = Read-Host -Prompt (Get-LocalizedText -Key "RemoveExisitingBCContainer")
-
-while ($should_remove_existing_container -eq "" -or $should_remove_existing_container -ne "Y" -and $should_remove_existing_container -ne "N") {
-    $should_remove_existing_container = Read-Host -Prompt (Get-LocalizedText -Key "RemoveExisitingBCContainer")
-}
-
-if ($should_remove_existing_container -eq "Y") {
-    Remove-BcContainer $container_name
+            Exit 1
+        }
+    }
 }
 
 $artifact_url = Get-BCArtifactUrl -select Latest -type OnPrem -country w1 -version $version
-
-Remove-BcContainer $container_name
 
 if ($database_type -eq "bak") {
     New-BCContainer `
@@ -243,7 +305,7 @@ if ($database_type -eq "bak") {
         -updateHosts `
         -licenseFile $license_file `
         -bakFile $backup_file `
-        -additionalParameters $additionalParameters
+
 }
 else {
     New-BcContainer `
