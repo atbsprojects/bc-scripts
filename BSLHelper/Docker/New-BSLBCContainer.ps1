@@ -1,3 +1,9 @@
+$ModulesPath = Split-Path -Parent $MyInvocation.MyCommand.Definition | Split-Path -Parent
+
+Import-Module "$ModulesPath\Modules\InputHelpers.psm1"
+Import-Module "$ModulesPath\Modules\LanguageHelpers.psm1"
+Import-Module "$ModulesPath\Modules\NetworkHelpers.psm1"
+
 function New-BSLBCContainer {    
     Initialize-Language
     
@@ -18,10 +24,16 @@ function New-BSLBCContainer {
     Write-Host (Get-LocalizedText -Key "DockerCheck") -ForegroundColor White
     
     try {
-        docker info | Out-Null
-        $dockerInstalled = $true
+        docker info 2> $null | Out-Null
+
+        if ($LastExitCode -eq 0) {
+            $dockerInstalled = $true
+        }
+        else {
+            $dockerInstalled = $false
+        }
     }
-    catch {
+    catch { 
         $dockerInstalled = $false
     }
     
@@ -117,7 +129,7 @@ function New-BSLBCContainer {
     else {
         $database_server = Get-ParsedInput -prompt (Get-LocalizedText -Key "DatabaseServer")
     
-        $database_instance = Get-ParsedInput -prompt (Get-LocalizedText -Key "DatabaseInstance")
+        $database_instance = ""
     
         $database_name = Get-ParsedInput -prompt (Get-LocalizedText -Key "DatabaseName")
     
@@ -157,7 +169,7 @@ function New-BSLBCContainer {
     
     $should_include_test_tool_kit = Get-ParsedInputWithOptions -prompt (Get-LocalizedText -Key "ShouldIncludeTestToolKit") -options ("y", "n")
     
-    if ($should_include_test_tool_kit -eq "y") {
+    if ($should_include_test_tool_kit) {
         $container_parameters.includeTestToolkit = $True
     }
     

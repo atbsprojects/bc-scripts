@@ -1,6 +1,6 @@
 $ModulesPath = Split-Path -parent $MyInvocation.MyCommand.Definition
 
-Import-Module "$ModulesPath\input-helpers.psm1"
+Import-Module "$ModulesPath\InputHelpers.psm1"
 
 $Script:Language = "en"
 
@@ -11,7 +11,7 @@ $Script:Translations = @{
         DockerCheck                         = "⌛ Checking if Docker is installed..."
         DockerInstalled                     = "✅ Docker is installed."
         DockerNotInstalled                  = "❌ Docker is not installed or not running."
-        DockerInstallPrompt                 = "⚠️ Please install Docker and run this script again."
+        DockerInstallPrompt                 = "⚠️ Please install or start Docker and run this script again."
         BCContainerHelperCheck              = "⌛ Checking if BCContainerHelper is installed..."
         BCContainerHelperNotInstalled       = "❌ BCContainerHelper is not installed."
         BCContainerHelperInstalling         = "⌛ Installing BCContainerHelper..."
@@ -46,7 +46,7 @@ $Script:Translations = @{
         DockerCheck                         = "⌛ Preverjamo, ali je Docker nameščen ..."
         DockerInstalled                     = "✅ Docker je nameščen."
         DockerNotInstalled                  = "❌ Docker ni nameščen ali ne deluje."
-        DockerInstallPrompt                 = "⚠️ Prosimo, namestite Docker in ponovno zaženite ta skript."
+        DockerInstallPrompt                 = "⚠️ Prosimo, namestite ali zaženite Docker in ponovno zaženite ta skript."
         BCContainerHelperCheck              = "⌛ Preverjamo, ali je BCContainerHelper nameščen ..."
         BCContainerHelperNotInstalled       = "❌ BCContainerHelper ni nameščen."
         BCContainerHelperInstalling         = "⌛ Nameščam BCContainerHelper ..."
@@ -86,11 +86,9 @@ function Set-Language {
     $Script:Language = $LanguageCode
     $Env:BSLLanguage = $LanguageCode
 }
-    
 function Get-CurrentLanguage {
     return $Script:Language
 }
-    
 function Get-LocalizedText {
     param(
         [string]$Key
@@ -103,9 +101,8 @@ function Get-LocalizedText {
         return $Script:Translations.en[$Key]
     }
 }
-    
 function Initialize-Language {
-    if ($null -eq $Env:BSLLanguage) {
+    if ([string]::IsNullOrWhiteSpace($Env:BSLLanguage)) {
         $SelectedLanguage = Get-ParsedInputWithOptions -prompt (Get-LocalizedText -Key "SelectLanguage") -options ("en", "sl")
         Set-Language -LanguageCode $SelectedLanguage
     }
