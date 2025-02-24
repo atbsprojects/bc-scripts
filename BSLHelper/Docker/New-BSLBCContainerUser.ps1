@@ -5,6 +5,35 @@ Import-Module "$ModulesPath\Modules\LanguageHelpers.psm1"
 Import-Module "$ModulesPath\Modules\NetworkHelpers.psm1"
 Import-Module "$ModulesPath\Modules\DockerHelpers.psm1"
 
+function Remove-BcContainerBcUser() {
+    param(
+        [string] $containerName,
+        [string] $serverInstance,
+        [string] $tenant = "default",
+        [string] $userName
+    )
+
+    if ([string]::IsNullOrEmpty($containerName)) {
+        Write-Error "Container name cannot be null or empty."
+        return
+    }
+    if ([string]::IsNullOrEmpty($serverInstance)) {
+        Write-Error "Server instance cannot be null or empty."
+        return
+    }
+    if ([string]::IsNullOrEmpty($userName)) {
+        Write-Error "User name cannot be null or empty."
+        return
+    }
+
+    try {
+        docker exec -it $containerName powershell -Command "Import-Module 'C:\Program Files\Microsoft Dynamics NAV\240\Service\NavAdminTool.ps1'; Remove-NAVServerUser -ServerInstance $serverInstance -UserName $userName -tenant $tenant;"
+    }
+    catch {
+        
+    }
+}
+
 function New-BSLBCContainerUser() {
     Initialize-Language
 
@@ -13,7 +42,7 @@ function New-BSLBCContainerUser() {
     $is_docker_installed = Get-IsDockerInstalled
 
     if (-not $is_docker_installed) {
-        Write-Host "Docker is not installed, exiting ..."
+        Write-Error "Docker is not installed, exiting ..."
 
         Exit 1
     }
@@ -28,17 +57,32 @@ function New-BSLBCContainerUser() {
 
     $users = Get-BcContainerBcUser -containerName $container_name
 
+    $container_info = Get-BcContainerServerConfiguration -containerName $container_name
+
     $number_of_users = $users.Count
     
     if ($number_of_users -ge 150) {
-        Write-Host "Container already has maximum number of users, exiting ..."
+        $should_delete_user = Get-ParsedInputWithOptions -prompt "Do you want to delete a user? (y/n)" -options ("y", "n")
 
-        $should_delete_user = Get-ParsedInputWithOptions -prompt "Do you want to delete a user?" -options ("y", "n")
+        if ($should_delete_user -eq "n") {
+            Write-Host "Container already has maximum number of users, exiting ..." -ForegroundColor Red
 
-        if ($should_delete_user -eq "y") {
-            $user_to_delete = Get-ParsedInput -prompt "Enter user name to delete"
+            Exit 1
+        }
 
-            Remove-BcContainerBcUser -containerName $container_name -userName $user_to_delete
+        $should_keep_deleting = $True
+
+        while ($should_keep_deleting) {
+            $user_to_delete = $users | Select-Object -First 1
+
+            $should_delete_the_user = Get-ParsedInputWithOptions -prompt "Do you want to delete user '$($user_to_delete.UserName)'? (y/n)" -options ("y", "n")
+
+            if ($should_delete_the_user -eq "y") {
+                Remove-BcContainerBcUser -serverInstance $container_info.ServerInstance -containerName $container_name -userName $user_to_delete.UserName
+            }
+            else {
+                $should_keep_deleting = $False
+            }
         }
     }
 
